@@ -1,0 +1,35 @@
+/*
+ * FaceDetect.h
+ *
+ *  Created on: 3 janv. 2012
+ *      Author: bruno
+ */
+
+#ifndef FACEDETECT_H_
+#define FACEDETECT_H_
+
+#define MASK_HEIGHT	(20)
+#define MASK_WIDTH	(20)
+#define MASK_SIZE	(MASK_HEIGHT*MASK_WIDTH)
+
+#define REDUCTION_SCALE (1.2)
+#define NUM_SCALE		(5)
+
+enum { BILINEAR, BICUBIC };
+
+#define REDUCTION BILINEAR
+
+void CorrigeIllumination(float *ImageWindow, Byte *Mask);
+void EgaliseHistogramme(float *ImageWindow, Byte *Mask);
+
+#if (REDUCTION == BILINEAR)
+Byte *ReduceImageBilinear(Byte *Image, int *Width, int *Height, float scale);
+#endif
+#if (REDUCTION == BICUBIC)
+Byte *ReduceImageBicubic(Byte *Image, int *Width, int *Height, float scale);
+#endif
+
+float CalculeNet(Network *Net);
+
+
+#endif /* FACEDETECT_H_ */
